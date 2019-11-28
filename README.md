@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/abdelhay90/fullstack-challenge-be.svg?token=u243kVU7psJjfYSkHAJK&branch=master)](https://travis-ci.com/abdelhay90/fullstack-challenge-be)
 # Code Challenge
 
 	- Imagine you are one of our consultants and you got assigned to a project at one of our top partners.
