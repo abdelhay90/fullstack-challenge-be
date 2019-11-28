@@ -1,4 +1,4 @@
-# Alten Code Challenge
+# Code Challenge
 
 	- Imagine you are one of our consultants and you got assigned to a project at one of our top partners.
 
