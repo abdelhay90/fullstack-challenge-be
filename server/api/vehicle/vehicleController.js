@@ -85,7 +85,7 @@ exports.post = async function (req, res, next) {
         let vehicle = await models.Vehicle.create(data, {
             include: [models.Customer]
         });
-        logger.log(`new vehicle ${JSON.stringify(updated.toJSON())} added`);
+        logger.log(`new vehicle ${JSON.stringify(vehicle.toJSON())} added`);
         res.json(vehicle.toJSON());
     } catch (err) {
         next(err)
@@ -102,7 +102,7 @@ exports.post = async function (req, res, next) {
 exports.delete = async function (req, res, next) {
     try {
         await req.vehicle.destroy();
-        logger.log(`vehicle ${JSON.stringify(updated.toJSON())} deleted`);
+        logger.log(`vehicle ${JSON.stringify(req.vehicle.toJSON())} deleted`);
         res.json(req.vehicle.toJSON());
     } catch (e) {
         next(e)

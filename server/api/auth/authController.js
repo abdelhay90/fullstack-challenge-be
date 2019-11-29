@@ -8,7 +8,7 @@ exports.signin = function (req, res, next) {
     // verify user. Then we can just create a token
     // and send it back for the client to consume
     let token = signToken(req.user.id);
-    logger.log(`user ${JSON.stringify(user.toJson())} signed in`);
+    logger.log(`user ${JSON.stringify(req.user.toJson())} signed in`);
     res.json({token: token});
 };
 
