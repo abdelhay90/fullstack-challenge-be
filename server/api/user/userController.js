@@ -1,5 +1,5 @@
-const signToken = require('../auth/auth').signToken;
 const models = require('../../models');
+const logger = require('../../utils/logger');
 
 /**
  * define id params when detected in the route and get associated record to it
@@ -14,7 +14,7 @@ exports.params = function (req, res, next, id) {
             if (!user) {
                 next(new Error('No user with that id'));
             } else {
-                req.user = user.toJson();
+                req.selectedUser = user;
                 next();
             }
         },
@@ -44,7 +44,7 @@ exports.get = function (req, res, next) {
  * @param next
  */
 exports.getOne = function (req, res, next) {
-    res.json(req.user);
+    res.json(req.selectedUser.toJson());
 };
 
 /**
@@ -56,11 +56,12 @@ exports.getOne = function (req, res, next) {
  */
 exports.put = async function (req, res, next) {
 
-    let user = req.user;
+    let user = req.selectedUser;
     let update = req.body;
 
     try {
         let updated = await user.update({...update});
+        logger.log(`new update to vehicle ${JSON.stringify(updated.toJSON())}`);
         res.json(updated)
     } catch (e) {
         next(e)
@@ -78,8 +79,8 @@ exports.put = async function (req, res, next) {
 exports.post = async function (req, res, next) {
     try {
         let user = await models.User.create(req.body);
-        const token = signToken(user._id);
-        res.json({token: token});
+        logger.log(`new vehicle ${JSON.stringify(user.toJSON())} added`);
+        res.json(user.toJson());
     } catch (err) {
         next(err)
     }
@@ -94,8 +95,9 @@ exports.post = async function (req, res, next) {
  */
 exports.delete = async function (req, res, next) {
     try {
-        await req.user.destroy();
-        res.json(req.user.toJson());
+        await req.selectedUser.destroy();
+        logger.log(`user ${JSON.stringify(req.selectedUser.toJSON())} deleted`);
+        res.json(req.selectedUser.toJson());
     } catch (e) {
         next(e)
     }
@@ -107,5 +109,5 @@ exports.delete = async function (req, res, next) {
  * @param res
  */
 exports.me = function (req, res) {
-    res.json(req.user.toJson());
+    res.json(req.user);
 };

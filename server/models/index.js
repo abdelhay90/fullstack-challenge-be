@@ -12,6 +12,7 @@ config.password = allConfig.db.password;
 config.database = allConfig.db.dbName;
 config.port = allConfig.db.port;
 config.host = allConfig.db.host;
+config.logging = allConfig.env !== 'test';
 const db = {};
 //console.log(config);
 let sequelize;

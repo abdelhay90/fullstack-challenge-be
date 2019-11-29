@@ -1,4 +1,5 @@
 const models = require('../../models');
+const logger = require('../../utils/logger');
 
 /**
  * define id params when detected in the route and get associated record to it
@@ -13,7 +14,7 @@ exports.params = function (req, res, next, id) {
             if (!vehicle) {
                 next(new Error('No user with that id'));
             } else {
-                req.vehicle = vehicle.toJSON();
+                req.vehicle = vehicle;
                 next();
             }
         },
@@ -60,6 +61,7 @@ exports.put = async function (req, res, next) {
 
     try {
         let updated = await vehicle.update({...update});
+        logger.log(`new update to vehicle ${JSON.stringify(updated.toJSON())}`);
         res.json(updated)
     } catch (e) {
         next(e)
@@ -76,7 +78,14 @@ exports.put = async function (req, res, next) {
  */
 exports.post = async function (req, res, next) {
     try {
-        let vehicle = await models.Vehicle.create(req.body);
+        const data = {
+            ...req.body,
+            CustomerId: req.body.customerId
+        };
+        let vehicle = await models.Vehicle.create(data, {
+            include: [models.Customer]
+        });
+        logger.log(`new vehicle ${JSON.stringify(updated.toJSON())} added`);
         res.json(vehicle.toJSON());
     } catch (err) {
         next(err)
@@ -93,6 +102,7 @@ exports.post = async function (req, res, next) {
 exports.delete = async function (req, res, next) {
     try {
         await req.vehicle.destroy();
+        logger.log(`vehicle ${JSON.stringify(updated.toJSON())} deleted`);
         res.json(req.vehicle.toJSON());
     } catch (e) {
         next(e)

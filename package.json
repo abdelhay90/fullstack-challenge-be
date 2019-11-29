@@ -16,6 +16,9 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
+    ],
+    "testPathIgnorePatterns" : [
+      "<rootDir>/server/__tests__/fixtures/"
     ]
   },
   "keywords": [],

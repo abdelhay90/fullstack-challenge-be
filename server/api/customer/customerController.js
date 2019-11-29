@@ -1,4 +1,5 @@
 const models = require('../../models');
+const logger = require('../../utils/logger');
 
 /**
  * define id params when detected in the route and get associated record to it
@@ -8,12 +9,17 @@ const models = require('../../models');
  * @param id
  */
 exports.params = function (req, res, next, id) {
-    models.Customer.findOne({where: {id}}).then(
+    models.Customer.findOne({
+        where: {id},
+        include: [
+            {model: models.Vehicle}
+        ]
+    }).then(
         (customer) => {
             if (!customer) {
                 next(new Error('No customer with that id'));
             } else {
-                req.customer = customer.toJSON();
+                req.customer = customer;
                 next();
             }
         },
@@ -61,9 +67,9 @@ exports.put = async function (req, res, next) {
 
     let customer = req.customer;
     let update = req.body;
-
     try {
         let updated = await customer.update({...update});
+        logger.log(`new update to customer ${JSON.stringify(updated.toJSON())}`);
         res.json(updated)
     } catch (e) {
         next(e)
@@ -81,6 +87,7 @@ exports.put = async function (req, res, next) {
 exports.post = async function (req, res, next) {
     try {
         let customer = await models.Customer.create(req.body);
+        logger.log(`new customer ${JSON.stringify(customer.toJSON())} added`);
         res.json(customer.toJSON());
     } catch (err) {
         next(err)
@@ -97,6 +104,7 @@ exports.post = async function (req, res, next) {
 exports.delete = async function (req, res, next) {
     try {
         await req.customer.destroy();
+        logger.log(`customer ${JSON.stringify(req.customer.toJSON())} deleted`);
         res.json(req.customer.toJSON());
     } catch (e) {
         next(e)

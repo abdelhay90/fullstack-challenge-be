@@ -25,3 +25,4 @@ yarn-error.log*
 .idea
 database.sqlite3
 :memory
+coverage

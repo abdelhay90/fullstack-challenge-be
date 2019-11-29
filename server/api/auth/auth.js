@@ -70,12 +70,12 @@ exports.verifyUser = function () {
         // look user up in the DB so we can check
         // if the passwords match for the username
         User.findOne({name: username})
-            .then(function (user) {
+            .then(async function (user) {
                 if (!user) {
                     res.status(401).send('No user with the given username');
                 } else {
                     // checking the passowords here
-                    if (!user.validatePassword(password)) {
+                    if (!await user.validatePassword(password)) {
                         res.status(401).send('Wrong password');
                     } else {
                         // if everything is good,

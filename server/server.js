@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const api = require('./api/api');
 const config = require('./config/config');
-// const logger = require('./utils/logger');
 const db = require('./models');
 const errorHandler = require('./middleware/errorHandler');
 // const auth = require('./api/auth/routes');
@@ -21,7 +20,6 @@ require('./middleware/appMiddleware')(app);
 
 // setup the api
 app.use('/api', api);
-// app.use('/auth', auth);
 
 // set up global error handling
 app.use(errorHandler);

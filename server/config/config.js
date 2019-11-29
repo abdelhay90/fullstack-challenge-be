@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 const config = {
     dev: 'development',
-    test: 'testing',
+    test: 'test',
     prod: 'production',
     port: process.env.PORT || 3000,
     db: {
