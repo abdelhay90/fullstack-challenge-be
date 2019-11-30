@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 /**
  * user model definition
@@ -40,10 +40,10 @@ module.exports = (sequelize, DataTypes) => {
             },
         },
         {},
-    )
+    );
     User.associate = function(models) {
         // associations can be defined here
-    }
+    };
 
     /**
      * find user
@@ -53,32 +53,32 @@ module.exports = (sequelize, DataTypes) => {
     User.findByLogin = async (login) => {
         let user = await User.findOne({
             where: { username: login },
-        })
+        });
 
         if (!user) {
             user = await User.findOne({
                 where: { email: login },
-            })
+            });
         }
 
-        return user
-    }
+        return user;
+    };
 
     /**
      * before create hook to hash password when saving
      */
     User.beforeCreate(async (user) => {
-        user.password = await user.generatePasswordHash()
-    })
+        user.password = await user.generatePasswordHash();
+    });
 
     /**
      * generate hash for password
      * @returns {Promise<void>}
      */
     User.prototype.generatePasswordHash = async function() {
-        const saltRounds = 10
-        return await bcrypt.hash(this.password, saltRounds)
-    }
+        const saltRounds = 10;
+        return await bcrypt.hash(this.password, saltRounds);
+    };
 
     /**
      * validate password is validity
@@ -86,19 +86,19 @@ module.exports = (sequelize, DataTypes) => {
      * @returns {Promise<void>}
      */
     User.prototype.validatePassword = async function(password) {
-        const res = await bcrypt.compare(password, this.password)
-        return res
-    }
+        const res = await bcrypt.compare(password, this.password);
+        return res;
+    };
 
     /**
      * used to return a clone of user without password
      * @returns {{}}
      */
     User.prototype.toJson = function() {
-        let obj = Object.assign({}, this.dataValues)
-        delete obj.password
-        return obj
-    }
+        let obj = Object.assign({}, this.dataValues);
+        delete obj.password;
+        return obj;
+    };
 
-    return User
-}
+    return User;
+};

@@ -56,7 +56,7 @@
   },
   "lint-staged": {
     "{server}/**/*.js": [
-      "prettier --write --print-width 80 --tab-width 4 --no-semi --single-quote --trailing-comma all --arrow-parens always",
+      "prettier --write",
       "git add"
     ]
   },

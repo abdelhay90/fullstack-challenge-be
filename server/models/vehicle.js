@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 module.exports = (sequelize, DataTypes) => {
     const Vehicle = sequelize.define(
         'Vehicle',
@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
             status: DataTypes.STRING,
         },
         {},
-    )
+    );
     Vehicle.associate = function(models) {
         // associations can be defined here
-        Vehicle.belongsTo(models.Customer)
-    }
+        Vehicle.belongsTo(models.Customer);
+    };
 
-    return Vehicle
-}
+    return Vehicle;
+};

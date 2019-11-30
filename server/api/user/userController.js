@@ -1,5 +1,5 @@
-const models = require('../../models')
-const logger = require('../../utils/logger')
+const models = require('../../models');
+const logger = require('../../utils/logger');
 
 /**
  * define id params when detected in the route and get associated record to it
@@ -12,17 +12,17 @@ exports.params = function(req, res, next, id) {
     models.User.findOne({ where: { id } }).then(
         (user) => {
             if (!user) {
-                next(new Error('No user with that id'))
+                next(new Error('No user with that id'));
             } else {
-                req.selectedUser = user
-                next()
+                req.selectedUser = user;
+                next();
             }
         },
         (error) => {
-            next(error)
+            next(error);
         },
-    )
-}
+    );
+};
 
 /**
  * get all users in db
@@ -33,13 +33,13 @@ exports.params = function(req, res, next, id) {
 exports.get = function(req, res, next) {
     models.User.findAll().then(
         (data) => {
-            res.json(data.map((item) => item.toJson()))
+            res.json(data.map((item) => item.toJson()));
         },
         (error) => {
-            next(error)
+            next(error);
         },
-    )
-}
+    );
+};
 
 /**
  * get one user by id
@@ -48,8 +48,8 @@ exports.get = function(req, res, next) {
  * @param next
  */
 exports.getOne = function(req, res, next) {
-    res.json(req.selectedUser.toJson())
-}
+    res.json(req.selectedUser.toJson());
+};
 
 /**
  * update existing user
@@ -59,17 +59,17 @@ exports.getOne = function(req, res, next) {
  * @returns {Promise<void>}
  */
 exports.put = async function(req, res, next) {
-    let user = req.selectedUser
-    let update = req.body
+    let user = req.selectedUser;
+    let update = req.body;
 
     try {
-        let updated = await user.update({ ...update })
-        logger.log(`new update to vehicle ${JSON.stringify(updated.toJSON())}`)
-        res.json(updated)
+        let updated = await user.update({ ...update });
+        logger.log(`new update to vehicle ${JSON.stringify(updated.toJSON())}`);
+        res.json(updated);
     } catch (e) {
-        next(e)
+        next(e);
     }
-}
+};
 
 /**
  * adding new user or sign up
@@ -80,13 +80,13 @@ exports.put = async function(req, res, next) {
  */
 exports.post = async function(req, res, next) {
     try {
-        let user = await models.User.create(req.body)
-        logger.log(`new vehicle ${JSON.stringify(user.toJSON())} added`)
-        res.json(user.toJson())
+        let user = await models.User.create(req.body);
+        logger.log(`new vehicle ${JSON.stringify(user.toJSON())} added`);
+        res.json(user.toJson());
     } catch (err) {
-        next(err)
+        next(err);
     }
-}
+};
 
 /**
  * delete existing user
@@ -97,13 +97,13 @@ exports.post = async function(req, res, next) {
  */
 exports.delete = async function(req, res, next) {
     try {
-        await req.selectedUser.destroy()
-        logger.log(`user ${JSON.stringify(req.selectedUser.toJSON())} deleted`)
-        res.json(req.selectedUser.toJson())
+        await req.selectedUser.destroy();
+        logger.log(`user ${JSON.stringify(req.selectedUser.toJSON())} deleted`);
+        res.json(req.selectedUser.toJson());
     } catch (e) {
-        next(e)
+        next(e);
     }
-}
+};
 
 /**
  * get data against current user
@@ -111,5 +111,5 @@ exports.delete = async function(req, res, next) {
  * @param res
  */
 exports.me = function(req, res) {
-    res.json(req.user)
-}
+    res.json(req.user);
+};
