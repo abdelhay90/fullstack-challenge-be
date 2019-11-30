@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "npx nodemon index.js",
     "migrate:all": "npx rimraf ./database.sqlite3 && npx sequelize-cli db:migrate",
     "seed:all": "npm run migrate:all && npx sequelize-cli db:seed:all",
