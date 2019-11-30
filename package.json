@@ -17,7 +17,7 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "testPathIgnorePatterns" : [
+    "testPathIgnorePatterns": [
       "<rootDir>/server/__tests__/fixtures/"
     ]
   },
@@ -45,10 +45,24 @@
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
     "nodemon": "^2.0.1",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
+  },
+  "lint-staged": {
+    "{server}/**/*.js": [
+      "prettier --write --print-width 80 --tab-width 4 --no-semi --single-quote --trailing-comma all --arrow-parens always",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
   }
 }

@@ -26,3 +26,5 @@ yarn-error.log*
 database.sqlite3
 :memory
 coverage
+gce.json
+gce.json.enc
