@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "npx nodemon index.js",
-    "migrate:all": "npx rimraf ./database.sqlite3 && npx sequelize-cli db:migrate",
+    "migrate:all": "npx rimraf ./:memory && npx sequelize-cli db:migrate",
     "seed:all": "npm run migrate:all && npx sequelize-cli db:seed:all",
     "seed:test": "npx rimraf ./:memory && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run seed:test",
