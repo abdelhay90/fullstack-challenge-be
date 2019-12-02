@@ -4,13 +4,14 @@ const config = {
     dev: 'development',
     test: 'test',
     prod: 'production',
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 8080,
     db: {
-        host: process.env.POSTGRES_HOST,
-        port: process.env.POSTGRES_PORT || 5432,
-        dbName: process.env.POSTGRES_DB,
-        user: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
+        username: process.env.MYSQL_USER,
+        password: process.env.MYSQL_ROOT_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        logging: true,
     },
     // 10 days in hours
     expireTime: '240h' /*24 * 60 * 10*/,
@@ -34,7 +35,7 @@ try {
 } catch (e) {
     envConfig = {};
 }
-
+console.log(_.merge(config, envConfig));
 // merge the two config files together
 // the envConfig file will overwrite properties
 // on the config object

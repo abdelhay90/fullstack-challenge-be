@@ -6,9 +6,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "npx nodemon index.js",
-    "migrate:all": "npx rimraf ./:memory && npx sequelize-cli db:migrate",
+    "migrate:all": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "seed:all": "npm run migrate:all && npx sequelize-cli db:seed:all",
-    "seed:test": "npx rimraf ./:memory && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "seed:test": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run seed:test",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
@@ -40,6 +40,7 @@
     "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
+    "mysql2": "^2.0.1",
     "sequelize": "^5.21.2",
     "sqlite3": "^4.1.0"
   },

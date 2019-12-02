@@ -6,5 +6,4 @@ RUN npm install
 EXPOSE 8080
 
 USER node
-CMD ["npm", "run seed:all"]
 CMD ["npm", "start"]

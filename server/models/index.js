@@ -7,15 +7,16 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config.json')[env];
 const allConfig = require(__dirname + '/../config/config');
-config.username = allConfig.db.user;
+config.username = allConfig.db.username;
 config.password = allConfig.db.password;
-config.database = allConfig.db.dbName;
+config.database = allConfig.db.database;
 config.port = allConfig.db.port;
 config.host = allConfig.db.host;
 config.logging = allConfig.env !== 'test';
 const db = {};
 //console.log(config);
 let sequelize;
+console.log(config)
 if (config.use_env_variable) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
