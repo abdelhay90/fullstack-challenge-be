@@ -4,6 +4,7 @@ const token = async () => {
     const res = await request(app)
         .post('/api/auth/signin')
         .send({ name: 'admin', password: 'admin' });
+    console.log(res.body);
     return res.body.token;
 };
 describe('Users', function() {
