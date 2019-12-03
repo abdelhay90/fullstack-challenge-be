@@ -17,10 +17,10 @@ if (config.env === 'development' && process.argv[2] === '-u') {
 // setup the app middleware
 require('./middleware/appMiddleware')(app);
 
-app.use('/public', express.static(__dirname + '/build'));
+app.use('/public', express.static('build'));
 
 app.get('/public/*', (req, res) => {
-    res.sendFile(__dirname + '/build/index.html');
+    res.sendFile('build/index.html');
 });
 // setup the api
 app.use('/api', api);
