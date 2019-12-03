@@ -19,11 +19,12 @@ require('./middleware/appMiddleware')(app);
 
 app.use('/', express.static('build'));
 
+// setup the api
+app.use('/api', api);
+
 app.get('/*', (req, res) => {
     res.sendFile('../build/index.html');
 });
-// setup the api
-app.use('/api', api);
 
 // set up global error handling
 app.use(errorHandler);
