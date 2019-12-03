@@ -12,5 +12,6 @@ notifications:
     - ahmed.abdelhay.90@gmail.com
 before_install:
   - npm ci
+  - mysql -e 'CREATE DATABASE database_test'
 script:
   - npm test
