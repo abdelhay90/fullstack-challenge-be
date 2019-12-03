@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { AuthContext } from '../Auth';
 
-function SecureRoute({ component: Component, scopes, ...rest }) {
+function SecureRoute({ component: Component, ...rest }) {
   return (
     <AuthContext.Consumer>
       {auth => (
@@ -19,15 +18,4 @@ function SecureRoute({ component: Component, scopes, ...rest }) {
     </AuthContext.Consumer>
   );
 }
-
-SecureRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  scopes: PropTypes.array,
-};
-
-SecureRoute.defaultProps = {
-  scopes: [],
-};
-
 export default SecureRoute;

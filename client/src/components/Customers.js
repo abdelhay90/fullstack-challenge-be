@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  ExpansionPanelActions,
+  Fab,
+  Tooltip,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Network from '../common/network';
 import { urls } from '../common/constants';
+import Vehicles from './Vehicles';
 
 const CustomerList = ({ classes }) => {
   const [customers, setCustomers] = useState([]);
@@ -18,7 +24,9 @@ const CustomerList = ({ classes }) => {
       setCustomers(res.data);
     }
 
-    new Network().get(urls.CUSTOMERS()).then(getCustomers);
+    if (customers.length === 0)
+      new Network().get(urls.CUSTOMERS()).then(getCustomers);
+    return function() {};
   });
   return (
     <div className={classes.container}>
@@ -38,9 +46,20 @@ const CustomerList = ({ classes }) => {
               </ListItem>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
-              HEllo
+              <Vehicles vehicles={customer.Vehicles} />
             </ExpansionPanelDetails>
-            <ExpansionPanelActions>hello</ExpansionPanelActions>
+            <ExpansionPanelActions>
+              <Tooltip title='Refresh Vehicles Status' aria-label='add'>
+                <Fab
+                  size='small'
+                  aria-label='Refresh Vehicles Status'
+                  color='primary'
+                  onClick={() => {}}
+                >
+                  <RefreshIcon />
+                </Fab>
+              </Tooltip>
+            </ExpansionPanelActions>
           </ExpansionPanel>
         ))}
       </List>
