@@ -8,17 +8,20 @@
     "dev": "npx nodemon index.js",
     "migrate:all": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "seed:all": "npm run migrate:all && npx sequelize-cli db:seed:all",
-    "seed:test": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "seed:test": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run seed:test",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/client/"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/server/__tests__/fixtures/"
+      "<rootDir>/server/__tests__/fixtures/",
+      "<rootDir>/client/",
+      "<rootDir>/server/config/"
     ]
   },
   "keywords": [],

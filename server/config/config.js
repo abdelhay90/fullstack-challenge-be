@@ -35,7 +35,6 @@ try {
 } catch (e) {
     envConfig = {};
 }
-console.log(_.merge(config, envConfig));
 // merge the two config files together
 // the envConfig file will overwrite properties
 // on the config object

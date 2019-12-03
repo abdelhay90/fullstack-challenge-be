@@ -7,6 +7,9 @@ const token = async () => {
     return res.body.token;
 };
 describe('Customers', function() {
+    beforeAll(()=> {
+
+    });
     it('should get all customers in db', async () => {
         const authTok = await token();
         const res = await request(app)
@@ -34,12 +37,12 @@ describe('Customers', function() {
             .post('/api/customers')
             .set({ Authorization: `Bearer ${authTok}` })
             .send({
-                name: 'Ahmed Abdelhay',
+                name: 'Ahmed Abdelhay11',
                 address: 'Cairo, Egypt',
             });
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('id');
-        expect(res.body.name).toEqual('Ahmed Abdelhay');
+        expect(res.body.name).toEqual('Ahmed Abdelhay11');
     });
 
     it('should delete existing customer', async () => {
@@ -48,8 +51,8 @@ describe('Customers', function() {
             .post('/api/customers')
             .set({ Authorization: `Bearer ${authTok}` })
             .send({
-                name: 'Ahmed Abdelhay',
-                address: 'Cairo, Egypt',
+                name: 'Ahmed Abdelhay22',
+                address: 'Cairo, Egypt22',
             });
         const res = await request(app)
             .del(`/api/customers/${resCustomer.body.id}`)
@@ -57,7 +60,7 @@ describe('Customers', function() {
             .send();
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('id');
-        expect(res.body.name).toEqual('Ahmed Abdelhay');
+        expect(res.body.name).toEqual('Ahmed Abdelhay22');
     });
 
     it('should update existing customer', async () => {
@@ -66,17 +69,17 @@ describe('Customers', function() {
             .post('/api/customers')
             .set({ Authorization: `Bearer ${authTok}` })
             .send({
-                name: 'Ahmed Abdelhay',
+                name: 'Ahmed Abdelhay45',
                 address: 'Cairo, Egypt',
             });
         const res = await request(app)
             .put(`/api/customers/${resCustomer.body.id}`)
             .set({ Authorization: `Bearer ${authTok}` })
             .send({
-                address: 'Giza, Egypt',
+                address: 'Giza, Egypt21',
             });
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('id');
-        expect(res.body.address).toEqual('Giza, Egypt');
+        expect(res.body.address).toEqual('Giza, Egypt21');
     });
 });
