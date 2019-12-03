@@ -10,7 +10,8 @@
     "seed:all": "npm run migrate:all && npx sequelize-cli db:seed:all",
     "seed:test": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run seed:test",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "build:client": "cd ./client && npm run build"
   },
   "jest": {
     "testEnvironment": "node",

@@ -17,6 +17,8 @@ if (config.env === 'development' && process.argv[2] === '-u') {
 // setup the app middleware
 require('./middleware/appMiddleware')(app);
 
+app.use('/', express.static('client/build'))
+
 // setup the api
 app.use('/api', api);
 
