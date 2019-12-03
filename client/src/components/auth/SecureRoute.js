@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../Auth';
+import { AuthContext } from '../../Auth';
 
 function SecureRoute({ component: Component, ...rest }) {
   return (

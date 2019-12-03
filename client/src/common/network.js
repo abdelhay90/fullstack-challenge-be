@@ -17,6 +17,10 @@ export default class network {
     }
   };
 
+  getToken = () => {
+    return _token;
+  };
+
   prepareHeader = (addHeaders, noToken) => {
     let headers = {};
     if (noToken) {

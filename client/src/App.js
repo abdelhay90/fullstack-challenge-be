@@ -18,24 +18,26 @@ class App extends Component {
   render() {
     const { auth } = this.state;
     return (
-      <AuthContext.Provider value={auth}>
-        <Nav auth={auth} />
-        <div className='body'>
-          <Route
-            path='/'
-            exact
-            render={props => <Home auth={auth} {...props} />}
-          />
-          <Route
-            path='/login'
-            render={props => <Login auth={auth} {...props} />}
-          />
-          <Route
-            path='/customers'
-            render={props => <Customers auth={auth} {...props} />}
-          />
-        </div>
-      </AuthContext.Provider>
+      <>
+        <AuthContext.Provider value={auth}>
+          <Nav auth={auth} />
+          <div className='body'>
+            <Route
+              path='/'
+              exact
+              render={props => <Home auth={auth} {...props} />}
+            />
+            <Route
+              path='/login'
+              render={props => <Login auth={auth} {...props} />}
+            />
+            <Route
+              path='/customers'
+              render={props => <Customers auth={auth} {...props} />}
+            />
+          </div>
+        </AuthContext.Provider>
+      </>
     );
   }
 }

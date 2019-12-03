@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { inject } from 'mobx-react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {
   List,
@@ -13,25 +14,16 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import Network from '../common/network';
-import { urls } from '../common/constants';
 import Vehicles from './Vehicles';
 
-const CustomerList = ({ classes }) => {
-  const [customers, setCustomers] = useState([]);
-  useEffect(() => {
-    function getCustomers(res) {
-      setCustomers(res.data);
-    }
-
-    if (customers.length === 0)
-      new Network().get(urls.CUSTOMERS()).then(getCustomers);
-    return function() {};
-  });
+const CustomerList = ({ classes, store }) => {
+  const handleRefreshCustomer = async id => {
+    await store.updateCustomer(id);
+  };
   return (
     <div className={classes.container}>
       <List>
-        {customers.map(customer => (
+        {store.customers.map(customer => (
           <ExpansionPanel key={customer.id}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <ListItem className={classes.root}>
@@ -54,7 +46,9 @@ const CustomerList = ({ classes }) => {
                   size='small'
                   aria-label='Refresh Vehicles Status'
                   color='primary'
-                  onClick={() => {}}
+                  onClick={() => {
+                    handleRefreshCustomer(customer.id);
+                  }}
                 >
                   <RefreshIcon />
                 </Fab>
@@ -89,4 +83,4 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(CustomerList);
+export default inject('store')(withStyles(styles)(CustomerList));

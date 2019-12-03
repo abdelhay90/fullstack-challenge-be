@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-const PassengersPayslips = ({ classes, vehicles }) => {
+const Vehicles = ({ classes, vehicles }) => {
   return (
     <>
       <Paper className={classes.paper}>
@@ -33,12 +33,13 @@ const PassengersPayslips = ({ classes, vehicles }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {vehicles.map(row => (
-              <TableRow key={row.id}>
-                <TableCell align='left'>{row.vin}</TableCell>
-                <TableCell align='left'>{row.regNo}</TableCell>
-              </TableRow>
-            ))}
+            {vehicles &&
+              vehicles.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell align='left'>{row.vin}</TableCell>
+                  <TableCell align='left'>{row.regNo}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </Paper>
@@ -46,4 +47,4 @@ const PassengersPayslips = ({ classes, vehicles }) => {
   );
 };
 
-export default withStyles(styles)(PassengersPayslips);
+export default withStyles(styles)(Vehicles);
