@@ -1,7 +1,7 @@
 sudo: required
 language: node_js
 services:
-  - docker
+  - mysql
 cache:
   directories:
     - node_modules
@@ -11,6 +11,6 @@ notifications:
   email:
     - ahmed.abdelhay.90@gmail.com
 before_install:
-  - docker build -t fullstack-challenge .
+  - npm ci
 script:
   - npm test
