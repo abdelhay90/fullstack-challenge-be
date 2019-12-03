@@ -10,15 +10,18 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             email: {
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             role: {
                 type: Sequelize.STRING,
             },
             password: {
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

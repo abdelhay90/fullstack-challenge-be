@@ -1,4 +1,4 @@
-FROM node:10.17 as native-build
+FROM node:10 as native-build
 WORKDIR /home/node/app
 COPY . .
 RUN npm install

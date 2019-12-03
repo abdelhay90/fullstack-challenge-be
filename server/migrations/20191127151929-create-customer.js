@@ -10,6 +10,8 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING,
+                unique: true,
+                allowNull: false,
             },
             address: {
                 type: Sequelize.STRING,
@@ -25,6 +27,6 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        //return queryInterface.dropTable('Customers');
+        return queryInterface.dropTable('Customers');
     },
 };
