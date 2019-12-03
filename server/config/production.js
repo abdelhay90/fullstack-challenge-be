@@ -1,10 +1,10 @@
 module.exports = {
     // disbable logging for production
     db:{
-        "username": "root",
-        "password": "password",
+        "username": "challenger",
+        "password": "admin@123",
         "database": "database_production",
-        "host": "mysql",
+        "host": "35.231.53.158",
         "dialect": "mysql",
         logging: true,
     },

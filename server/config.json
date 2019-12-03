@@ -16,10 +16,10 @@
     "port": 3306
   },
   "production": {
-    "username": "root",
-    "password": "password",
+    "username": "challenger",
+    "password": "admin@123",
     "database": "database_production",
-    "host": "mysql",
+    "host": "35.231.53.158",
     "dialect": "mysql",
     "port": 3306
   }
