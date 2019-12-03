@@ -10,8 +10,7 @@ FROM node:10 as api-server
 WORKDIR /home/node/app
 COPY . .
 RUN npm install
-RUN mkdir client
-COPY --from=build-client /usr/src/app/build ./client
+COPY --from=build-client /usr/src/app/build ./build
 EXPOSE 8080
 
 USER node
