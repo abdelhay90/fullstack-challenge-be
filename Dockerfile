@@ -11,9 +11,9 @@ CMD ["npm", "start"]
 # Stage 1 - the build process
 FROM node:10 as build-deps
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY client/package.json client/package-lock.json ./
 RUN npm ci
-COPY . ./
+COPY client/. ./
 RUN npm run build
 
 # Stage 2 - the production environment
