@@ -23,7 +23,7 @@ const renderApp = store => {
 
 const init = async () => {
   const network = new Network(null);
-  const store = new Store(network.getToken());
+  const store = new Store({ token: network.getToken() });
   if (network.getToken()) {
     await store.getCustomers();
   }
