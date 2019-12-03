@@ -9,6 +9,7 @@ const token = async () => {
 describe('Users', function() {
     it('should get all users in db', async () => {
         const authTok = await token();
+        console.log(authTok)
         const res = await request(app)
             .get('/api/users')
             .set({ Authorization: `Bearer ${authTok}` })
@@ -19,7 +20,8 @@ describe('Users', function() {
 
     it('should get specified user with id', async () => {
         const authTok = await token();
-        const res = await request(app)
+      console.log(authTok)
+      const res = await request(app)
             .get('/api/users/1')
             .set({ Authorization: `Bearer ${authTok}` })
             .send();
