@@ -24,7 +24,7 @@ app.use("/", express.static("build"));
 app.use("/api", api);
 
 app.get("/*", (req, res) => {
-  res.sendFile(__dirname + "../build/index.html");
+  res.sendFile(__dirname + "/../build/index.html");
 });
 
 // set up global error handling
