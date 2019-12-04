@@ -1,5 +1,6 @@
 const models = require('../../models');
 const logger = require('../../utils/logger');
+const socket = require('../../utils/socket');
 
 /**
  * define id params when detected in the route and get associated record to it
@@ -65,6 +66,7 @@ exports.put = async function(req, res, next) {
     try {
         let updated = await vehicle.update({ ...update });
         logger.log(`new update to vehicle ${JSON.stringify(updated.toJSON())}`);
+        socket().emit('vehicle-status', updated);
         res.json(updated);
     } catch (e) {
         next(e);

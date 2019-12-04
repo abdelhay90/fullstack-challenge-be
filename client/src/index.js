@@ -7,6 +7,7 @@ import { Store } from './models';
 import Network from './common/network';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { urls } from './common/constants';
 
 const renderApp = store => {
   ReactDOM.render(
@@ -21,11 +22,16 @@ const renderApp = store => {
   );
 };
 
+/**
+ * used to init application  with customers if user token is valid
+ * @returns {Promise<void>}
+ */
 const init = async () => {
   const network = new Network(null);
-  const store = new Store({ token: network.getToken() });
+  const store = new Store({ token: network.getToken(), network });
   if (network.getToken()) {
-    await store.getCustomers();
+    const res = await network.get(urls.CUSTOMERS());
+    store.setCustomers(res.data);
   }
   renderApp(store);
 };

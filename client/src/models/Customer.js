@@ -1,16 +1,20 @@
+/**
+ * customer model to be used in mobx store to be bound to controls from store
+ */
+
 import { action, observable } from 'mobx';
 import Vehicle from './Vehicle';
 
 export default class Customer {
-  id;
+  @observable id;
 
-  name;
+  @observable name;
 
-  address;
+  @observable address;
 
-  createdAt;
+  @observable createdAt;
 
-  updatedAt;
+  @observable updatedAt;
 
   @observable Vehicles;
 
@@ -23,6 +27,10 @@ export default class Customer {
     this.Vehicles = Vehicles.map(item => new Vehicle({ ...item }));
   }
 
+  /**
+   * update current customer data
+   * @param updated
+   */
   @action.bound
   update(updated) {
     this.id = updated.id;

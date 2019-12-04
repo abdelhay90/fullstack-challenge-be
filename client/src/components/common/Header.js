@@ -1,3 +1,6 @@
+/**
+ * header component holds user login and log mechanisms
+ */
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +13,7 @@ const Header = ({ classes, auth }) => {
   const handleLogin = () => {
     if (auth.isAuthenticated()) {
       auth.logout();
+      auth.history.push('/');
     } else {
       auth.history.push('/login');
     }

@@ -1,5 +1,8 @@
+/**
+ * customers component list that shows all customer with associated vehicles data
+ */
+
 import React from 'react';
-import { inject } from 'mobx-react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {
   List,
@@ -15,15 +18,17 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Vehicles from './Vehicles';
+import { urls } from '../../common/constants';
 
-const CustomerList = ({ classes, store }) => {
+const CustomerList = ({ classes, customers, updateCustomer, network }) => {
   const handleRefreshCustomer = async id => {
-    await store.updateCustomer(id);
+    const res = await network.get(urls.CUSTOMER(id));
+    updateCustomer(res.data);
   };
   return (
     <div className={classes.container}>
       <List>
-        {store.customers.map(customer => (
+        {customers.map(customer => (
           <ExpansionPanel key={customer.id}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <ListItem className={classes.root}>
@@ -83,4 +88,4 @@ const styles = theme => ({
   },
 });
 
-export default inject('store')(withStyles(styles)(CustomerList));
+export default withStyles(styles)(CustomerList);

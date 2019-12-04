@@ -1,45 +1,38 @@
-import React, { Component } from 'react';
+/**
+ * app component used as starting point to all app components
+ */
+import React from 'react';
+import { inject } from 'mobx-react';
 import { Route } from 'react-router-dom';
-import { Home, Nav, Login, Customers } from './components';
+import { Home, Nav, Login } from './components';
 import { Auth, AuthContext } from './Auth';
 import WithRoot from './WithRoot';
+import CustomersContainer from './components/customers/CustomersContainer';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    const { history } = props;
-    this.state = {
-      auth: new Auth(history),
-    };
-  }
+const App = ({ history, store }) => {
+  const auth = new Auth(history, store.network);
+  return (
+    <>
+      <AuthContext.Provider value={auth}>
+        <Nav auth={auth} />
+        <div className='body'>
+          <Route
+            path='/'
+            exact
+            render={props => <Home auth={auth} {...props} />}
+          />
+          <Route
+            path='/login'
+            render={props => <Login auth={auth} {...props} />}
+          />
+          <Route
+            path='/customers'
+            render={props => <CustomersContainer auth={auth} {...props} />}
+          />
+        </div>
+      </AuthContext.Provider>
+    </>
+  );
+};
 
-  componentDidMount() {}
-
-  render() {
-    const { auth } = this.state;
-    return (
-      <>
-        <AuthContext.Provider value={auth}>
-          <Nav auth={auth} />
-          <div className='body'>
-            <Route
-              path='/'
-              exact
-              render={props => <Home auth={auth} {...props} />}
-            />
-            <Route
-              path='/login'
-              render={props => <Login auth={auth} {...props} />}
-            />
-            <Route
-              path='/customers'
-              render={props => <Customers auth={auth} {...props} />}
-            />
-          </div>
-        </AuthContext.Provider>
-      </>
-    );
-  }
-}
-
-export default WithRoot(App);
+export default inject('store')(WithRoot(App));

@@ -1,6 +1,10 @@
+/**
+ * home component with links to main routes in application
+ */
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
+import Simulator from './Simulator';
 
 const Home = ({ classes, auth }) => {
   return (
@@ -13,6 +17,7 @@ const Home = ({ classes, auth }) => {
           <></>
         )}
       </>
+      <Simulator />
     </div>
   );
 };

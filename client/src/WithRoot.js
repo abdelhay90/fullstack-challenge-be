@@ -1,3 +1,6 @@
+/**
+ * HOC to app to initiate material UI theme provider with associate bound component to it
+ */
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
