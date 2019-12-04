@@ -32,6 +32,8 @@ const init = async () => {
   if (network.getToken()) {
     const res = await network.get(urls.CUSTOMERS());
     store.setCustomers(res.data);
+    const vechiclesRes = await network.get(urls.VEHICLES());
+    store.setVehicles(vechiclesRes.data);
   }
   renderApp(store);
 };

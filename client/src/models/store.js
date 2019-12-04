@@ -10,6 +10,7 @@ import {
 } from '../common/constants';
 import Customer from './Customer';
 import { getRandomInt } from '../common/utils';
+import Vehicle from './Vehicle';
 
 export default class Store {
   network;
@@ -20,16 +21,20 @@ export default class Store {
 
   @observable customers;
 
-  constructor({ token = null, network, customers = [] }) {
+  @observable vehicles;
+
+  constructor({ token = null, network, customers = [], vehicles = [] }) {
     this.userToken = token;
     this.network = network;
     this.network.setToken(token);
     this.customers = customers;
+    this.vehicles = vehicles;
     this.simulationStarted = false;
     this.client = SocketClient('');
     this.client.on('vehicle-status', async data => {
       const res = await this.network.get(urls.CUSTOMER(data.CustomerId));
       this.updateCustomerVehicle(res.data);
+      this.updateVehicle(data);
     });
   }
 
@@ -51,6 +56,14 @@ export default class Store {
   }
 
   /**
+   * get all customers and update current model
+   */
+  @action.bound
+  async setVehicles(data) {
+    this.vehicles = data.map(item => new Vehicle({ ...item }));
+  }
+
+  /**
    * update single customer with specified id
    * @param customer
    */
@@ -67,7 +80,20 @@ export default class Store {
       new Customer({ ...customer }),
       ...this.customers.slice(index + 1, this.customers.length),
     ];
-    console.log(this.customers, this.customers.length);
+  }
+
+  /**
+   * update single vehicle with specified id
+   * @param vehicle
+   */
+  @action.bound
+  updateVehicle(vehicle) {
+    const index = this.vehicles.findIndex(item => item.id === vehicle.id);
+    this.vehicles = [
+      ...this.vehicles.slice(0, index),
+      new Customer({ ...vehicle }),
+      ...this.vehicles.slice(index + 1, this.vehicles.length),
+    ];
   }
 
   /**
