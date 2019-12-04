@@ -112,7 +112,7 @@ const VehiclesWithFilter = ({ classes, vehicles, customers }) => {
             Reset Filter
           </Button>
         </Grid>
-        <Grid>
+        <Grid className={classes.tableContainer}>
           <Vehicles vehicles={values.currentVehiclesView} />
         </Grid>
       </Grid>
@@ -121,6 +121,10 @@ const VehiclesWithFilter = ({ classes, vehicles, customers }) => {
 };
 
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   container: {
     margin: '0 auto',
     maxWidth: 960,
@@ -132,6 +136,9 @@ const styles = theme => ({
   },
   menu: {
     width: 200,
+  },
+  tableContainer: {
+    width: '100%',
   },
 });
 

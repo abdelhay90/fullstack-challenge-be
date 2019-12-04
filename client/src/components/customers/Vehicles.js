@@ -31,7 +31,7 @@ const Vehicles = ({ classes, vehicles }) => {
   return (
     <>
       <Paper className={classes.paper}>
-        <Table className={classes.table} size='small'>
+        <Table className={classes.table} size='medium'>
           <TableHead>
             <TableRow>
               <TableCell align='left'>VIN</TableCell>
