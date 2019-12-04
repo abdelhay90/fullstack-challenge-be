@@ -12,12 +12,14 @@ const Home = ({ classes, auth }) => {
       <h1>Home</h1>
       <>
         {auth.isAuthenticated() ? (
-          <Link to='/customers'>View Customers</Link>
+          <>
+            <Link to='/customers'>View Customers</Link>
+            <Simulator />
+          </>
         ) : (
           <></>
         )}
       </>
-      <Simulator />
     </div>
   );
 };
